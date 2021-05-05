@@ -1,0 +1,95 @@
+﻿@using BlazorClient.Authentication
+<!--<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorClient</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Login">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Login
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Users">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Register
+            </NavLink>
+        </li>
+    </ul>
+</div>-->
+
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavMgr
+
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href=""></a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="@NavMenuCssClass mr-auto" @onclick="ToggleNavMenu">
+        <div class="nav nav-tabs">
+            <a class="nav-item nav-link" href="">Home</a>
+            <a class="nav-item nav-link" href="Users">Register User </a>
+        </div>
+    </div>
+    <span class="navbar-text">
+        <AuthorizeView>
+            <NotAuthorized>
+                <a href="" @onclick="PerformLogin">
+                    Login
+                </a>
+            </NotAuthorized>
+            <Authorized>
+                <a href="" @onclick="PerformLogout">
+                    Logout
+                </a>
+            </Authorized>
+        </AuthorizeView>
+    </span>
+</nav>
+
+@code {
+    /*private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }*/
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void PerformLogin()
+    {
+        NavMgr.NavigateTo("/Login");
+    }
+    
+    private void PerformLogout()
+    {
+        try
+        {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            NavMgr.NavigateTo("/Login");
+        }
+        catch (Exception e)
+        {
+        }
+    }
+}
