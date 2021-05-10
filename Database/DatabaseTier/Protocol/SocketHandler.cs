@@ -59,10 +59,32 @@ namespace DatabaseTier.Protocol
             {
                 switch (request.Header)
                 {
-                    case "GetAllUsers":
-                        return new Request("GetAllUsers", await _userRepo.GetAllAsync());
                     case "AddUser":
                         return new Request("AddUser", await _userRepo.AddAsync(ToObject<User>((JsonElement) request.Obj)));
+                    case "CheckLogin":
+                    {
+                        User user = (User) request.Obj;
+                        
+                        Console.WriteLine(user.Username + user.Password);
+                        User obj = await _userRepo.GetAsync((user));
+
+                        if (obj is User)
+                        {
+                            return new Request("CheckLogin", obj);
+                        }
+                        // return ???
+                        return null; //needs to be replaced
+                    }
+
+
+                    
+                    
+                    
+
+
+                    case "GetAllUsers":
+                        return new Request("GetAllUsers", await _userRepo.GetAllAsync());
+                    
                     case "UpdateUser" :
                         return new Request("UpdateUser", await _userRepo.UpdateAsync((User) request.Obj));
                    case "RemoveUserByUsername":

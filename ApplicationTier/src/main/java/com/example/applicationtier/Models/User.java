@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@Component
+
 public class User {
     @JsonProperty("username")
     private String username;
@@ -13,6 +13,11 @@ public class User {
     @JsonProperty("password")
     private String password;
 
+    public User(String username,
+                String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     @Required
     public String getUsername() {

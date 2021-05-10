@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DatabaseTier.Models;
 
 namespace DatabaseTier.Repository
 {
@@ -9,5 +11,7 @@ namespace DatabaseTier.Repository
         Task<TEntity> AddAsync(TEntity entity);
         Task RemoveAsync(int predicate);
         Task<TEntity> UpdateAsync(TEntity entity);
+
+        Task<TEntity> GetAsync(TEntity entity);
     }
 }

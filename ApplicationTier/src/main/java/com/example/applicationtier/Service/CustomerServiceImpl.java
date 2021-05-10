@@ -2,6 +2,7 @@ package com.example.applicationtier.Service;
 
 import com.example.applicationtier.DAO.Customer.CustomerDAO;
 import com.example.applicationtier.Models.Customer;
+import com.example.applicationtier.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,29 +19,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer validateUser(String username, String password) {
-        /*Customer customer = firebaseService.getUserDetails(username);
-        if(customer.getPassword().equals(password))
-        {
-            return customer;
+    public User validateUser(String username, String password) {
+        User user = customerDAO.validateUser(username, password);
+        if(!(user == null)){
+            return user;
         }
-        else if(!customer.getPassword().equals(password))
-        {
-            try {
-                throw new Exception("Password did not matched");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+       else{
+           // Todo throw the corresponding response
+           return null;
         }
-        else
-        {
-            try{
-                throw new Exception("Username not found");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
-        return null;
     }
 
     @Override

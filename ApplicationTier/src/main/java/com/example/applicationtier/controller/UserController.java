@@ -1,5 +1,6 @@
 package com.example.applicationtier.controller;
 
+import com.example.applicationtier.Models.User;
 import com.example.applicationtier.Service.CustomerService;
 import com.example.applicationtier.Models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserController {
     private TestClass service;*/
 
     @GetMapping("/users")
-    public Customer validateUser(@RequestParam String username, @RequestParam String password) {
+    public User validateLogin(@RequestParam String username, @RequestParam String password) {
         return service.validateUser(username, password);
     }
 

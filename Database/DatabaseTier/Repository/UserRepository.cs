@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DatabaseTier.Models;
 using DatabaseTier.Persistence;
@@ -65,6 +66,22 @@ namespace DatabaseTier.Repository
                 Console.WriteLine(e.StackTrace);
                 throw new Exception($"User not found!");
             }
+        }
+
+        public async Task<User> GetAsync(User entity)
+        {
+            User user = _context.UsersTable.FirstOrDefault(u => u.Username.Equals(entity.Username));
+            if (user != null)
+            {
+                if (user.Password.Equals(entity.Password))
+                {
+                    return user;
+                }
+                
+                throw new Exception("Password not matched");
+            }
+
+            throw new Exception("Username not found");
         }
     }
 }

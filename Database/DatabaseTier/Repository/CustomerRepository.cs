@@ -60,5 +60,10 @@ namespace DatabaseTier.Repository
                 throw new Exception($"User not found!");
             }
         }
+
+        public Task<Customer> GetAsync(Customer entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
